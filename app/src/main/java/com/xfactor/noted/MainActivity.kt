@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "noted-database")
+        val db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "noted_db")
             .allowMainThreadQueries()
             .build()
 
