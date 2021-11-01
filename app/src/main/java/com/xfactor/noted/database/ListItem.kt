@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "list_item")
 data class ListItem(
-    @PrimaryKey val uid: Int,
+    @PrimaryKey val uId: Int,
     val listId: Int,
     val value: String
 )

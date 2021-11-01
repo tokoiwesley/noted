@@ -10,6 +10,7 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.room.Room
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.xfactor.noted.database.AppDatabase
+import com.xfactor.noted.database.migrations.MIGRATION_1_2
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,6 +19,7 @@ class MainActivity : AppCompatActivity() {
 
         val db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "noted_db")
             .allowMainThreadQueries()
+            .addMigrations(MIGRATION_1_2)
             .build()
 
         // Setting ActionBar logo
@@ -52,7 +54,7 @@ class MainActivity : AppCompatActivity() {
         )*/
 
         // Delete a list
-        listDao.delete(lists[0])
+//        listDao.delete(lists[0])
 
         Log.d("lists: ", listDao.getAll().toString())
     }

@@ -8,8 +8,8 @@ import androidx.room.Relation
 data class ListWithListItems(
     @Embedded val list: List,
     @Relation(
-        parentColumn = "uid",
-        entityColumn = "uid"
+        parentColumn = "uId",
+        entityColumn = "uId"
     )
     val listItems: kotlin.collections.List<ListItem>
 )
