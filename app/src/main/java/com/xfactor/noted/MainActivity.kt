@@ -10,6 +10,7 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.room.Room
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.xfactor.noted.database.AppDatabase
+import com.xfactor.noted.database.ListItem
 import com.xfactor.noted.database.migrations.MIGRATION_1_2
 
 class MainActivity : AppCompatActivity() {
@@ -41,22 +42,21 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
 
         val listDao = db.listDao()
-        val lists: List<com.xfactor.noted.database.List> = listDao.getAll()
-
-        Log.d("lists: ", lists.toString())
-
-        // Insert a list
-        /*listDao.insertAll(
-            com.xfactor.noted.database.List(
-                title = "Test List",
-                uId = lists.last().uId + 1
-            )
-        )*/
-
-        // Delete a list
-//        listDao.delete(lists[0])
+        val listItemDao = db.listItemDao()
 
         Log.d("lists: ", listDao.getAll().toString())
+        Log.d("listItems: ", listItemDao.getAll().toString())
+
+        listItemDao.insertAll(
+            ListItem(
+                uId = 2,
+                listId = listDao.getAll()[0].uId,
+                value = "Test Item"
+            )
+        )
+
+        Log.d("lists: ", listDao.getListWithListItems()[0].listItems.toString())
+//        Log.d("listItems: ", listItemDao.getAll().toString())
     }
 }
 
