@@ -1,5 +1,7 @@
 package com.xfactor.noted
 
+import com.xfactor.noted.database.ListWithListItems
+
 data class ListItem(
     val id: Long,
     var title: String,
@@ -15,8 +17,13 @@ val Lists = mutableListOf(
 
 val ListsToCompare = mutableListOf<ListItem>()
 
+fun getLists(): ListWithListItems {
+    return appDatabase.listDao.getListWithListItems()
+}
 
-fun getSubItems(item: ListItem):String {
-    val inListForm = item.elements.mapIndexed {idx, value -> (idx+1).toString().plus(". ").plus(value)}
+
+fun getSubItems(item: ListItem): String {
+    val inListForm =
+        item.elements.mapIndexed { idx, value -> (idx + 1).toString().plus(". ").plus(value) }
     return inListForm.joinToString("\n")
 }
