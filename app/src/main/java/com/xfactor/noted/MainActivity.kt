@@ -13,12 +13,13 @@ import com.xfactor.noted.database.AppDatabase
 import com.xfactor.noted.database.ListItem
 import com.xfactor.noted.database.migrations.MIGRATION_1_2
 
-class MainActivity : AppCompatActivity() {
+lateinit var appDatabase: AppDatabase
 
+class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "noted_db")
+        appDatabase = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "noted_db")
             .allowMainThreadQueries()
             .addMigrations(MIGRATION_1_2)
             .build()
@@ -40,23 +41,6 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-
-        val listDao = db.listDao()
-        val listItemDao = db.listItemDao()
-
-        Log.d("lists: ", listDao.getAll().toString())
-        Log.d("listItems: ", listItemDao.getAll().toString())
-
-        listItemDao.insertAll(
-            ListItem(
-                uId = 2,
-                listId = listDao.getAll()[0].uId,
-                value = "Test Item"
-            )
-        )
-
-        Log.d("lists: ", listDao.getListWithListItems()[0].listItems.toString())
-//        Log.d("listItems: ", listItemDao.getAll().toString())
     }
 }
 
